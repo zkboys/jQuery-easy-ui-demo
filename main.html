@@ -1,327 +1,329 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<title>tab模式菜单</title>
-	<link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="themes/demo.css">
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
-	
+    <title>tab模式菜单</title>
+    <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="themes/demo.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
+
 </head>
 <body class="easyui-layout">
-	<div data-options="region:'north',border:false" style="height:80px;">
-		<div style="height:50px;">logo区域</div>
-		<div style="padding:1px;border:1px solid #ddd;background-color:#E6F1F9;">
-			<a href="#" onclick = "javascript:$('#_main_center_tabs').tabs('select','首页');" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-home_nav'">首页</a>
-			<a href="#" class="easyui-menubutton" data-options="menu:'#mm1',iconCls:'icon-warning'">交通信息</a>
-			<a href="#" class="easyui-menubutton" data-options="menu:'#mm2',iconCls:'icon-tip'">路况信息</a>
-			<a href="#" class="easyui-menubutton" data-options="menu:'#mm3',iconCls:'icon-car'">违章信息</a>
-			<a href="#" class="easyui-menubutton" data-options="menu:'#mm4',iconCls:'icon-help'">关于</a>
-		</div>
-	</div>
-	
-	<div data-options="region:'west',split:true,title:'树形菜单'" style="width:250px;padding:10px;">
-		<ul id="tt"></ul>
-	</div>
-	
-	<div data-options="region:'center',title:''">
-		<div id = "_main_center_tabs" class="easyui-tabs" data-options="tabPosition:'top',fit:true,border:false,plain:true">
-			<div title="首页" data-options ="iconCls:'icon-home_nav',fit:true">
-				<div class="demo-info">
-					<div class="demo-tip icon-tip"></div>
-					<h2>框架介绍及说明</h2>
-					<div>
-						<h3>功能描述</h3>
-						<ul style = "line-height:20px;">
-							<li>树形菜单和tab页关联</li>
-							<li>tab页右键菜单(有图表)</li> 
-							<li>tab页双击关闭当前菜单</li>
-							<li>刷新tab页</li> 
-							<li>tab页限制数量（8个，可更改）</li> 
-							<li>树形菜单前台构造，只需简单的数组数据即可</li>
-							<li></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>	
-	
-	<!--顶部菜单-->
-	<div id="mm1" class = "top_menu" style="width:150px;">
-		<div  data-options="iconCls:'icon-edit',name:'./test.html'">事故信息录入</div>
-		<div  data-options="iconCls:'icon-search',name:'./test.html'">事故信息查询</div>
-		<div  data-options="iconCls:'icon-menu_edit',name:'./test.html'">事故信息处理</div>
-	</div>
-	<div id="mm2" class = "top_menu" style="width:100px;">
-		<div  data-options="iconCls:'icon-edit'">路况信息录入</div>
-		<div  data-options="iconCls:'icon-search'">路况信息查询</div>
-		<div  data-options="iconCls:'icon-menu_edit'">路况信息处理</div>
-	</div>
-	<div id="mm3" class = "top_menu" style="width:100px;">
-		<div  data-options="iconCls:'icon-edit'">违章信息录入</div>
-		<div  data-options="iconCls:'icon-search'">违章信息查询</div>
-		<div  data-options="iconCls:'icon-menu_edit'">违章信息处理</div>
-	</div>
-	<div id="mm4"  class="menu-content" style="background:#f0f0f0;padding:10px;text-align:left">
-		<img src="http://www.jeasyui.com/images/logo1.png" style="width:150px;height:50px">
-		<p style="font-size:14px;color:#444;">Try jQuery EasyUI to build your modem, interactive, javascript applications.</p>
-	</div>
-	<!--右键tab页菜单-->
-	<div id="mm" class="easyui-menu" style="width:150px;">
-        <div id="mm-tabclose"  data-options ="iconCls:'icon-cancel'">关闭</div>
-        <div id="mm-tabcloseall" data-options ="iconCls:'icon-left-right'">全部关闭</div>
-        <div id="mm-tabcloseother" data-options ="iconCls:'icon-close_orthers'">除此之外全部关闭</div>
-        <div class="menu-sep"></div>
-        <div id="mm-tabcloseright" data-options ="iconCls:'icon-right'">当前页右侧全部关闭</div>
-        <div id="mm-tabcloseleft" data-options ="iconCls:'icon-left'">当前页左侧全部关闭</div>
-		<div class="menu-sep"></div>
-        <div id="mm-update"  data-options ="iconCls:'icon-reload'">刷新</div>
-        <!-- 
-        <div id="mm-updateall">刷新全部</div>
-		<div class="menu-sep"></div>
-        <div id="mm-swich-screen">全/半屏切换</div> --><!-- 干扰工具条 -->
-	</div>
-	<script type="text/javascript" >
-	//树形菜单所需要的基本数据。
-		var data = [
-					{"id":2,"parentId":1,"state":"closed","text":"Fruits","iconCls":"icon-menu"},
-					{"id":3,"parentId":1,"text":"Vegetables","iconCls":"icon-menu"},
-					{"id":4,"parentId":2,"state":"closed","text":"apple","iconCls":"icon-test","attributes":{ "url":"./test.html"}},
-					{"id":5,"parentId":2,"text":"orange","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":6,"parentId":3,"text":"tomato","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":7,"parentId":3,"text":"carrot","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":8,"parentId":3,"text":"cabbage","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":9,"parentId":3,"text":"potato","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":10,"parentId":3,"text":"lettuce1","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":11,"parentId":3,"text":"lettuce2","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":12,"parentId":3,"text":"lettuce3","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":13,"parentId":3,"text":"lettuce4","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":14,"parentId":3,"text":"lettuce5","iconCls":"icon-menu","attributes":{ "url":"./test.html"}},
-					{"id":15,"parentId":3,"text":"lettuce6","iconCls":"icon-menu","attributes":{ "url":"./test.html"}, children:[]}
-					];
-		$(function(){
-			//顶部菜单绑定事件
-			 $('.top_menu').menu({   
-				 onClick: function(item){
-					var title = item.text;
-					var href = item.name;//暂时使用name存放href，不能使用href属性，如果使用href属性，会自动打开一个新的网页，没找到屏蔽方法。
-					var icon = item.iconCls;
-					openTab('#_main_center_tabs',title,href,icon);
-				}
-			});
-			//构造树
-			$('#tt').tree({
-				url:'/demo',
-				data:data,
-				loadFilter: function(rows){
-					return convert(rows);
-				},
-				//onDblClick//双击 
-				onClick: function(node){
-					//点击展开,再次点击收回
-					$(this).tree('toggle',node.target);
-					//点击打开窗口
-					if(undefined!=node.attributes){
-						var url = node.attributes.url;
-						var title = node.text;
-						var icon = node.iconCls; 
-						openTab('#_main_center_tabs',title,url,icon);
-						
-					}
-				}
-			});
-			//页面加载完成后，默认打开的tab
-			//openTab('#_main_center_tabs',data[1].name,data[1].attributes.url,data[1].iconCls);
-		});
-		/*
-		 *tab绑定右键菜单事件，
-		 *每次新建一个tab时，调用一次此方法，为新建tab绑定右键菜单。
-		 */
-		function tabsRightClickAction(){
-			//双击关闭TAB选项卡
-			$(".tabs-inner").dblclick(function(){
-				var subtitle = $(this).children("span").text();
-				tabCloseByTitle(subtitle);
-			})
-			//绑定右键菜单
-			$(".tabs-inner").bind('contextmenu',function(e){
-				$('#mm').menu('show', {
-					left: e.pageX,
-					top: e.pageY
-				});
-				
-				var subtitle =$(this).children("span").text();
-				$('#mm').data("currtab",subtitle);
-				return false;
-			});
-			//关闭当前
-			$('#mm-tabclose').click(function(){
-				var currtab_title = $('#mm').data("currtab");
-				tabCloseByTitle(currtab_title);
-			})
-			//全部关闭
-			$('#mm-tabcloseall').click(function(){
-				$('.tabs-inner span').each(function(i,n){
-					var t = $(n).text();
-					if(""!=t){
-						tabCloseByTitle(t);
-					}
-				});    
-			});
-			//关闭除当前之外的TAB
-			$('#mm-tabcloseother').click(function(){
-				var currtab_title = $('#mm').data("currtab");
-				$('.tabs-inner span').each(function(i,n){
-					var t = $(n).text();
-					if(t!=currtab_title&&t!="")
-						tabCloseByTitle(t);
-				});    
-			});
-			//关闭当前右侧的TAB
-			$('#mm-tabcloseright').click(function(){
-				var nextall = $('.tabs-selected').nextAll();
-				if(nextall.length==0){
-					//msgShow('系统提示','后边没有啦~~','error');
-					//alert('后边没有啦~~');
-					return false;
-				}
-				nextall.each(function(i,n){
-					var t=$('a:eq(0) span',$(n)).text();
-					if(t!=""){
-						tabCloseByTitle(t);
-					}
-				});
-				return false;
-			});
-			//关闭当前左侧的TAB
-			$('#mm-tabcloseleft').click(function(){
-				var prevall = $('.tabs-selected').prevAll();
-				if(prevall.length==0){
-					//alert('到头了，前边没有啦~~');
-					return false;
-				}
-				prevall.each(function(i,n){
-					var t=$('a:eq(0) span',$(n)).text();
-					if(t!=""){
-						tabCloseByTitle(t);
-					}
-				});
-				return false;
-			});
-			//刷新当前页
-			$('#mm-update').click(function(){
-				var currtab_title = $('#mm').data("currtab");
-				if(currtab_title!=''){
-					tabUpdateByTitle(currtab_title);  
-				}
-				
-			});
-			//全部刷新
-			//$('#mm-updateall').click(function(){
-			//	$('.tabs-inner span').each(function(i,n){
-			//		var t = $(n).text();
-			//		if(t!==''){
-			//			tabUpdateByTitle(t);
-			//		}
-			//	});    
-			//});
-		}// end of tabsRightClickAction();
-		
-		//根据title关闭tab页
-		function tabCloseByTitle(title){
-			var tab = $('#_main_center_tabs').tabs('getTab',title);
-			var closable = tab.panel('options').closable;
-			if(closable){
-				$('#_main_center_tabs').tabs('close',title);
-			}
-		}
-		
-		//根据title刷新tab页
-		function tabUpdateByTitle(title){
-			var tab = $('#_main_center_tabs').tabs('getTab',title); 
-			var href = tab.panel('options').href;
-			tab.panel('refresh', href);
-		}
-		
-		/* 根据title，href打开（已存在）或者新建一个tab页
-		 * selector:目标tabs 选择器
-		 * title：新tab页标题
-		 * href：新tab页加载内容路径
-		 * icon：新tab页图标（可选参数）
-		 */
-		function openTab(selector,title,href,icon){
-			var $tabs = $(selector);
-			//如果请求路径不存在，则跳转到error.html界面
-			if(!(href!=""&&href!="null"&&href!=null&&href!=undefined)){
-				href="framework/error.html";
-			}
-			if($tabs.tabs('exists',title)){//存在，则打开
-				$tabs.tabs('select',title);
-			}else{//不存在，新建,新建时判断tab页个数，超出则关闭第一个
-				var content = '<iframe scrolling="auto" frameborder="0" src="'+href+'" style="width:100%;height:99%;"></iframe>';
-				var tabCon = { title:title,  content:content, closable:true, selected:true, iconCls:icon };
-				if($('.tabs-inner').length>8){//最多打开8个（不包括首页）
-					$.messager.confirm('提示', '菜单页打开过多，是否关闭第一个，并打开“'+title+'”？', function(r){
-						if (r){//关闭第一页，并打开当前页
-							$('#_main_center_tabs').tabs('close',1);
-							$tabs.tabs('add',tabCon);
-							tabsRightClickAction();//绑定双击tab事件和右键菜单事件。
-						}
-					});
-				}else{
-					$tabs.tabs('add',tabCon);
-				}
-				
-			}
-			tabsRightClickAction();//绑定双击tab事件和右键菜单事件。
-		}
-		/*
-		 *前台构造树方法。
-		 *rows:树所需的基本数据。
-		 */
-		function convert(rows){
-			function exists(rows, parentId){
-				for(var i=0; i<rows.length; i++){
-					if (rows[i].id == parentId) return true;
-				}
-				return false;
-			}
-			
-			var nodes = [];
-			// get the top level nodes
-			for(var i=0; i<rows.length; i++){
-				var row = rows[i];
-				if (!exists(rows, row.parentId)){
-					nodes.push(row);
-				}
-			}
-			
-			var toDo = [];
-			for(var i=0; i<nodes.length; i++){
-				toDo.push(nodes[i]);
-			}
-			while(toDo.length){
-				var node = toDo.shift();	// the parent node
-				// get the children nodes
-				for(var i=0; i<rows.length; i++){
-					var row = rows[i];
-					if (row.parentId == node.id){
-						var child = row;
-						if (node.children){
-							node.children.push(child);
-						} else {
-							node.children = [child];
-						}
-						toDo.push(child);
-					}
-				}
-			}
-			return nodes;
-		}// end or  convert(rows)
-		
-	</script>
+<div data-options="region:'north',border:false" style="height:80px;">
+    <div style="height:50px;">logo区域</div>
+    <div style="padding:1px;border:1px solid #ddd;background-color:#E6F1F9;">
+        <a href="#" onclick="javascript:$('#_main_center_tabs').tabs('select','首页');" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-home_nav'">首页</a>
+        <a href="#" class="easyui-menubutton" data-options="menu:'#mm1',iconCls:'icon-warning'">交通信息</a>
+        <a href="#" class="easyui-menubutton" data-options="menu:'#mm2',iconCls:'icon-tip'">路况信息</a>
+        <a href="#" class="easyui-menubutton" data-options="menu:'#mm3',iconCls:'icon-car'">违章信息</a>
+        <a href="#" class="easyui-menubutton" data-options="menu:'#mm4',iconCls:'icon-help'">关于</a>
+    </div>
+</div>
+
+<div data-options="region:'west',split:true,title:'树形菜单'" style="width:250px;padding:10px;">
+    <ul id="tt"></ul>
+</div>
+
+<div data-options="region:'center',title:''">
+    <div id="_main_center_tabs" class="easyui-tabs" data-options="tabPosition:'top',fit:true,border:false,plain:true">
+        <div title="首页" data-options="iconCls:'icon-home_nav',fit:true">
+            <div class="demo-info">
+                <div class="demo-tip icon-tip"></div>
+                <h2>框架介绍及说明</h2>
+
+                <div>
+                    <h3>功能描述</h3>
+                    <ul style="line-height:20px;">
+                        <li>树形菜单和tab页关联</li>
+                        <li>tab页右键菜单(有图表)</li>
+                        <li>tab页双击关闭当前菜单</li>
+                        <li>刷新tab页</li>
+                        <li>tab页限制数量（8个，可更改）</li>
+                        <li>树形菜单前台构造，只需简单的数组数据即可</li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--顶部菜单-->
+<div id="mm1" class="top_menu" style="width:150px;">
+    <div data-options="iconCls:'icon-edit',name:'./test.html'">事故信息录入</div>
+    <div data-options="iconCls:'icon-search',name:'./test.html'">事故信息查询</div>
+    <div data-options="iconCls:'icon-menu_edit',name:'./test.html'">事故信息处理</div>
+</div>
+<div id="mm2" class="top_menu" style="width:100px;">
+    <div data-options="iconCls:'icon-edit'">路况信息录入</div>
+    <div data-options="iconCls:'icon-search'">路况信息查询</div>
+    <div data-options="iconCls:'icon-menu_edit'">路况信息处理</div>
+</div>
+<div id="mm3" class="top_menu" style="width:100px;">
+    <div data-options="iconCls:'icon-edit'">违章信息录入</div>
+    <div data-options="iconCls:'icon-search'">违章信息查询</div>
+    <div data-options="iconCls:'icon-menu_edit'">违章信息处理</div>
+</div>
+<div id="mm4" class="menu-content" style="background:#f0f0f0;padding:10px;text-align:left">
+    <img src="http://www.jeasyui.com/images/logo1.png" style="width:150px;height:50px">
+
+    <p style="font-size:14px;color:#444;">Try jQuery EasyUI to build your modem, interactive, javascript applications.</p>
+</div>
+<!--右键tab页菜单-->
+<div id="mm" class="easyui-menu" style="width:150px;">
+    <div id="mm-tabclose" data-options="iconCls:'icon-cancel'">关闭</div>
+    <div id="mm-tabcloseall" data-options="iconCls:'icon-left-right'">全部关闭</div>
+    <div id="mm-tabcloseother" data-options="iconCls:'icon-close_orthers'">除此之外全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="mm-tabcloseright" data-options="iconCls:'icon-right'">当前页右侧全部关闭</div>
+    <div id="mm-tabcloseleft" data-options="iconCls:'icon-left'">当前页左侧全部关闭</div>
+    <div class="menu-sep"></div>
+    <div id="mm-update" data-options="iconCls:'icon-reload'">刷新</div>
+    <!--
+    <div id="mm-updateall">刷新全部</div>
+    <div class="menu-sep"></div>
+    <div id="mm-swich-screen">全/半屏切换</div> --><!-- 干扰工具条 -->
+</div>
+<script type="text/javascript">
+    //树形菜单所需要的基本数据。
+    var data = [
+        {"id": 2, "parentId": 1, "state": "closed", "text": "Fruits", "iconCls": "icon-menu"},
+        {"id": 3, "parentId": 1, "text": "Vegetables", "iconCls": "icon-menu"},
+        {"id": 4, "parentId": 2, "text": "apple", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 5, "parentId": 2, "text": "orange", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 6, "parentId": 3, "text": "tomato", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 7, "parentId": 3, "text": "carrot", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 8, "parentId": 3, "text": "cabbage", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 9, "parentId": 3, "text": "potato", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 10, "parentId": 3, "text": "lettuce1", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 11, "parentId": 3, "text": "lettuce2", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 12, "parentId": 3, "text": "lettuce3", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 13, "parentId": 3, "text": "lettuce4", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 14, "parentId": 3, "text": "lettuce5", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}},
+        {"id": 15, "parentId": 3, "text": "lettuce6", "iconCls": "icon-menu", "attributes": {"url": "./test.html"}, children: []}
+    ];
+    $(function () {
+        //顶部菜单绑定事件
+        $('.top_menu').menu({
+            onClick: function (item) {
+                var title = item.text;
+                var href = item.name;//暂时使用name存放href，不能使用href属性，如果使用href属性，会自动打开一个新的网页，没找到屏蔽方法。
+                var icon = item.iconCls;
+                openTab('#_main_center_tabs', title, href, icon);
+            }
+        });
+        //构造树
+        $('#tt').tree({
+            url: '/demo',
+            data: data,
+            loadFilter: function (rows) {
+                return convert(rows);
+            },
+            //onDblClick//双击
+            onClick: function (node) {
+                //点击展开,再次点击收回
+                $(this).tree('toggle', node.target);
+                //点击打开窗口
+                if (undefined != node.attributes) {
+                    var url = node.attributes.url;
+                    var title = node.text;
+                    var icon = node.iconCls;
+                    openTab('#_main_center_tabs', title, url, icon);
+
+                }
+            }
+        });
+        //页面加载完成后，默认打开的tab
+        //openTab('#_main_center_tabs',data[1].name,data[1].attributes.url,data[1].iconCls);
+    });
+    /*
+     *tab绑定右键菜单事件，
+     *每次新建一个tab时，调用一次此方法，为新建tab绑定右键菜单。
+     */
+    function tabsRightClickAction() {
+        //双击关闭TAB选项卡
+        $(".tabs-inner").dblclick(function () {
+            var subtitle = $(this).children("span").text();
+            tabCloseByTitle(subtitle);
+        })
+        //绑定右键菜单
+        $(".tabs-inner").bind('contextmenu', function (e) {
+            $('#mm').menu('show', {
+                left: e.pageX,
+                top: e.pageY
+            });
+
+            var subtitle = $(this).children("span").text();
+            $('#mm').data("currtab", subtitle);
+            return false;
+        });
+        //关闭当前
+        $('#mm-tabclose').click(function () {
+            var currtab_title = $('#mm').data("currtab");
+            tabCloseByTitle(currtab_title);
+        })
+        //全部关闭
+        $('#mm-tabcloseall').click(function () {
+            $('.tabs-inner span').each(function (i, n) {
+                var t = $(n).text();
+                if ("" != t) {
+                    tabCloseByTitle(t);
+                }
+            });
+        });
+        //关闭除当前之外的TAB
+        $('#mm-tabcloseother').click(function () {
+            var currtab_title = $('#mm').data("currtab");
+            $('.tabs-inner span').each(function (i, n) {
+                var t = $(n).text();
+                if (t != currtab_title && t != "")
+                    tabCloseByTitle(t);
+            });
+        });
+        //关闭当前右侧的TAB
+        $('#mm-tabcloseright').click(function () {
+            var nextall = $('.tabs-selected').nextAll();
+            if (nextall.length == 0) {
+                //msgShow('系统提示','后边没有啦~~','error');
+                //alert('后边没有啦~~');
+                return false;
+            }
+            nextall.each(function (i, n) {
+                var t = $('a:eq(0) span', $(n)).text();
+                if (t != "") {
+                    tabCloseByTitle(t);
+                }
+            });
+            return false;
+        });
+        //关闭当前左侧的TAB
+        $('#mm-tabcloseleft').click(function () {
+            var prevall = $('.tabs-selected').prevAll();
+            if (prevall.length == 0) {
+                //alert('到头了，前边没有啦~~');
+                return false;
+            }
+            prevall.each(function (i, n) {
+                var t = $('a:eq(0) span', $(n)).text();
+                if (t != "") {
+                    tabCloseByTitle(t);
+                }
+            });
+            return false;
+        });
+        //刷新当前页
+        $('#mm-update').click(function () {
+            var currtab_title = $('#mm').data("currtab");
+            if (currtab_title != '') {
+                tabUpdateByTitle(currtab_title);
+            }
+
+        });
+        //全部刷新
+        //$('#mm-updateall').click(function(){
+        //	$('.tabs-inner span').each(function(i,n){
+        //		var t = $(n).text();
+        //		if(t!==''){
+        //			tabUpdateByTitle(t);
+        //		}
+        //	});
+        //});
+    }// end of tabsRightClickAction();
+
+    //根据title关闭tab页
+    function tabCloseByTitle(title) {
+        var tab = $('#_main_center_tabs').tabs('getTab', title);
+        var closable = tab.panel('options').closable;
+        if (closable) {
+            $('#_main_center_tabs').tabs('close', title);
+        }
+    }
+
+    //根据title刷新tab页
+    function tabUpdateByTitle(title) {
+        var tab = $('#_main_center_tabs').tabs('getTab', title);
+        var href = tab.panel('options').href;
+        tab.panel('refresh', href);
+    }
+
+    /* 根据title，href打开（已存在）或者新建一个tab页
+     * selector:目标tabs 选择器
+     * title：新tab页标题
+     * href：新tab页加载内容路径
+     * icon：新tab页图标（可选参数）
+     */
+    function openTab(selector, title, href, icon) {
+        var $tabs = $(selector);
+        //如果请求路径不存在，则跳转到error.html界面
+        if (!(href != "" && href != "null" && href != null && href != undefined)) {
+            href = "framework/error.html";
+        }
+        if ($tabs.tabs('exists', title)) {//存在，则打开
+            $tabs.tabs('select', title);
+        } else {//不存在，新建,新建时判断tab页个数，超出则关闭第一个
+            var content = '<iframe scrolling="auto" frameborder="0" src="' + href + '" style="width:100%;height:99%;"></iframe>';
+            var tabCon = {title: title, content: content, closable: true, selected: true, iconCls: icon};
+            if ($('.tabs-inner').length > 8) {//最多打开8个（不包括首页）
+                $.messager.confirm('提示', '菜单页打开过多，是否关闭第一个，并打开“' + title + '”？', function (r) {
+                    if (r) {//关闭第一页，并打开当前页
+                        $('#_main_center_tabs').tabs('close', 1);
+                        $tabs.tabs('add', tabCon);
+                        tabsRightClickAction();//绑定双击tab事件和右键菜单事件。
+                    }
+                });
+            } else {
+                $tabs.tabs('add', tabCon);
+            }
+
+        }
+        tabsRightClickAction();//绑定双击tab事件和右键菜单事件。
+    }
+    /*
+     *前台构造树方法。
+     *rows:树所需的基本数据。
+     */
+    function convert(rows) {
+        function exists(rows, parentId) {
+            for (var i = 0; i < rows.length; i++) {
+                if (rows[i].id == parentId) return true;
+            }
+            return false;
+        }
+
+        var nodes = [];
+        // get the top level nodes
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            if (!exists(rows, row.parentId)) {
+                nodes.push(row);
+            }
+        }
+
+        var toDo = [];
+        for (var i = 0; i < nodes.length; i++) {
+            toDo.push(nodes[i]);
+        }
+        while (toDo.length) {
+            var node = toDo.shift();	// the parent node
+            // get the children nodes
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows[i];
+                if (row.parentId == node.id) {
+                    var child = row;
+                    if (node.children) {
+                        node.children.push(child);
+                    } else {
+                        node.children = [child];
+                    }
+                    toDo.push(child);
+                }
+            }
+        }
+        return nodes;
+    }// end or  convert(rows)
+
+</script>
 </body>
 </html>
